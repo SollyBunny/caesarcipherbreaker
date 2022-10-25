@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
 
 	unsigned int hash;
 	char c;
+	unsigned char c2;
 
 	// Parse words.dat
 	FILE *fp = fopen("words.dat", "rb");
@@ -65,8 +66,8 @@ int main(int argc, char *argv[]) {
 		hash = 0;
 		for (int i = 1; i < argc; ++i) {
 			for (int m = 0; 1; ++m) {
-				c = argv[i][m];
-				if (c == ' ' || c == '\0') {
+				c2 = argv[i][m];
+				if (c2 == ' ' || c2 == '\0') {
 					if (HASHCHECK(out, hash)) {
 						letters[l].matchcount++;
 						//letters[l].match[word] = 1;
@@ -78,14 +79,14 @@ int main(int argc, char *argv[]) {
 					}*/
 					++word;
 					hash = 0;
-					if (c == '\0') break;
+					if (c2 == '\0') break;
 				} else {
-					c = TOLOWER(c);
-					if (c >= 'a' && c <= 'z') {
-						c += l;
-						if (c > 'z') c -= 26;
+					c2 = TOLOWER(c2);
+					if (c2 >= 'a' && c2 <= 'z') {
+						c2 += l;
+						if (c2 > 'z') c2 -= 26;
 					}
-					HASHADD(hash, c);
+					HASHADD(hash, c2);
 				}
 			}
 		}
@@ -116,23 +117,24 @@ int main(int argc, char *argv[]) {
 		//word = 0;
 		for (int i = 1; i < argc; ++i) {
 			for (int m = 0; 1; ++m) {
-				c = argv[i][m];
-				if (c == '\0') break;
-				if (c == ' ') {
+				c2 = argv[i][m];
+				if (c2 == '\0') break;
+				if (c2 == ' ') {
 					/*if (letters[l].match[word] == 1) {
 						printf("\x1b[32m");
 					} else {
 						printf("\x1b[0m");
 					}*/
 					++word;
-				} else if (c >= 'a' && c <= 'z') {
-					c += letters[l].shift;
-					if (c > 'z') c -= 25;
-				} else if (c >= 'A' && c <= 'Z') {
-					c += letters[l].shift;
-					if (c > 'Z') c -= 25;
+				} else if (c2 >= 'a' && c2 <= 'z') {
+					c2 += letters[l].shift;
+					//printf("\n(%u %u)\n", c2, 'z');
+					if (c2 > 'z') c2 -= 26;
+				} else if (c2 >= 'A' && c2 <= 'Z') {
+					c2 += letters[l].shift;
+					if (c2 > 'Z') c2 -= 26;
 				}
-				putchar(c);
+				putchar(c2);
 			}
 			/*if (letters[l].match[word] == 1) {
 				printf("\x1b[32m");
