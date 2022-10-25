@@ -127,10 +127,10 @@ int main(int argc, char *argv[]) {
 					++word;
 				} else if (c >= 'a' && c <= 'z') {
 					c += letters[l].shift;
-					if (c > 'z') c -= 26;
+					if (c > 'z') c -= 25;
 				} else if (c >= 'A' && c <= 'Z') {
 					c += letters[l].shift;
-					if (c > 'Z') c -= 26;
+					if (c > 'Z') c -= 25;
 				}
 				putchar(c);
 			}
